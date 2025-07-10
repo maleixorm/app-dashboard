@@ -115,6 +115,16 @@ class Bd {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ)->tipo_contato;
     }
+
+    public function getTotalDespesas()
+    {
+        $query ="SELECT sum(total) AS total_despesas FROM tb_despesas WHERE data_despesa BETWEEN :data_inicio AND :data_fim";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindValue(':data_inicio', $this->dashboard->__get('data_inicio'));
+        $stmt->bindValue(':data_fim', $this->dashboard->__get('data_fim'));
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ)->total_despesas;
+    }
 }
 
 $conexao = new Conexao();
@@ -137,5 +147,6 @@ $dashboard->__set('clientesInativos', $bd->getClientesInativos());
 $dashboard->__set('totalReclamacoes', $bd->getTotalReclamacoes());
 $dashboard->__set('totalElogios', $bd->getTotalElogios());
 $dashboard->__set('totalSugestoes', $bd->getTotalSugestoes());
+$dashboard->__set('totalDespesas', $bd->getTotalDespesas());
 
 echo json_encode($dashboard);
