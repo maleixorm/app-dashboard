@@ -22,6 +22,8 @@ $(document).ready(() => {
                 $('#clientesAtivos').html(dados.clientesAtivos);
                 $('#clientesInativos').html(dados.clientesInativos);
                 $('#totalReclamacoes').html(dados.totalReclamacoes);
+                $('#totalElogios').html(dados.totalElogios);
+                $('#totalSugestoes').html(dados.totalSugestoes);
             },
             error: erro => { console.log(erro); }
         });
