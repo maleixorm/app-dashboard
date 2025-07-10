@@ -8,6 +8,10 @@ class Dashboard {
     public $totalVendas;
     public $clientesAtivos;
     public $clientesInativos;
+    public $totalReclamacoes;
+    public $totalElogios;
+    public $totalSugestoes;
+    public $totalDespesas;
 
     public function __get($atributo)
     {
@@ -71,6 +75,24 @@ class Bd {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ)->total_vendas;
     }
+    
+    public function getClientesAtivos()
+    {
+        $query ="SELECT count(cliente_ativo) AS cliente_ativo FROM tb_clientes WHERE cliente_ativo = 1";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ)->cliente_ativo;
+    }
+    
+    public function getClientesInativos()
+    {
+        $query ="SELECT count(cliente_ativo) AS cliente_inativo FROM tb_clientes WHERE cliente_ativo = 0";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ)->cliente_inativo;
+    }
+    
+    
 }
 
 $conexao = new Conexao();
@@ -88,5 +110,7 @@ $bd = new Bd($conexao, $dashboard);
 
 $dashboard->__set('numeroVendas', $bd->getNumeroVendas());
 $dashboard->__set('totalVendas', $bd->getTotalVendas());
+$dashboard->__set('clientesAtivos', $bd->getClientesAtivos());
+$dashboard->__set('clientesInativos', $bd->getClientesInativos());
 
 echo json_encode($dashboard);
