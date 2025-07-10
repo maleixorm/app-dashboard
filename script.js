@@ -24,6 +24,7 @@ $(document).ready(() => {
                 $('#totalReclamacoes').html(dados.totalReclamacoes);
                 $('#totalElogios').html(dados.totalElogios);
                 $('#totalSugestoes').html(dados.totalSugestoes);
+                $('#totalDespesas').html(dados.totalDespesas);
             },
             error: erro => { console.log(erro); }
         });
