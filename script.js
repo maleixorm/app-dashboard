@@ -19,6 +19,8 @@ $(document).ready(() => {
             success: dados => { 
                 $('#numeroVendas').html(dados.numeroVendas);
                 $('#totalVendas').html(dados.totalVendas);
+                $('#clientesAtivos').html(dados.clientesAtivos);
+                $('#clientesInativos').html(dados.clientesInativos);
             },
             error: erro => { console.log(erro); }
         });
